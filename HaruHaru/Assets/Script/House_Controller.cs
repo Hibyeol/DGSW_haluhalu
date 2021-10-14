@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class House_Controller : MonoBehaviour
-{
-    // Start is called before the first frame update
+{ 
     void Start()
     {
         
@@ -13,6 +12,20 @@ public class House_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            //Debug.Log("[HC]OnTriggerEnter");
+            GameManager.instance.acceleration = 30;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        GameManager.instance.acceleration = 1;
     }
 }

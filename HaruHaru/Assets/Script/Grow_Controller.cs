@@ -5,22 +5,58 @@ using UnityEngine;
 public class Grow_Controller : MonoBehaviour
 {
 
-    Animator tomatoanimator;
+    Animator animator;
+    public bool sunflower_planting;
+    //public bool[] sunflower_planting = new bool[4];
     // Start is called before the first frame update
     void Start()
     {
-        tomatoanimator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
+        sunflower_planting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        //{
+        //    Debug.Log("TEST");
+        //    //animator.SetFloat("Speed", animator.GetFloat("Speed") + 0.02f);
+        //    animator.speed += 0.2f;
+        //}
+        //if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        //{
+        //    animator.SetFloat("Speed", animator.GetFloat("Speed") - 0.02f);
+        //}
     }
 
     public void Grow()
     {
         Debug.Log("[GC]Grow / Grow");
-        tomatoanimator.SetBool("Grow", true);
+        sunflower_planting = true;
+        animator.SetBool("Grow", true);
+        animator.SetBool("Restart", false);
+    }
+
+    public void Restart()
+    {
+        Debug.Log("[GC]Restart");
+        animator.SetBool("Grow", false);
+        animator.SetBool("Restart", true);
+        GameManager.instance.T_Planting = false;
+    }
+
+
+    public void T_CompleteGrowth()
+    {
+        GameManager.instance.T_completeGrowth = true;
+        Debug.Log("T_completeGrowth");
+    }
+
+
+    public void S_CompleteGrowth()
+    {
+        GameManager.instance.S_completeGrowth = true;
+        Debug.Log("S_completeGrowth");
     }
 }

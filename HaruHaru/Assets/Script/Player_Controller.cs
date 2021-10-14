@@ -10,10 +10,12 @@ public class Player_Controller : MonoBehaviour
     [SerializeField]
     private Transform cameraArm;
 
+    GameObject phone;
     GameObject tomato;
     GameObject sunflower;
     Animator animator;
     public float health;
+    bool ismove;
     Grow_Controller grow_controller;
 
     // Start is called before the first frame update
@@ -22,13 +24,19 @@ public class Player_Controller : MonoBehaviour
         animator = playerBody.GetComponent<Animator>();
         tomato = GameObject.Find("TomatoA");
         sunflower = GameObject.Find("SunFlowerA");
+        phone = GameObject.Find("Phone");
+        phone.SetActive(false);
+        ismove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         LookAround();
-        Move();
+        if (ismove == true)
+        {
+            Move();
+        }
         Phone();
     }
 
@@ -70,36 +78,91 @@ public class Player_Controller : MonoBehaviour
 
     void Phone()
     {
-
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            phone.SetActive(true);
+            ismove = false;
+            animator.SetInteger("animation", 1);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            phone.SetActive(false);
+            ismove = true;
+            
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        GameManager.instance.water_Text.SetActive(true);
+
         if (other.tag == "Tomato")
         {
-            
-            Debug.Log("[PC]OnTriggerEnter / Tomato");
-            if (Input.GetKeyDown(KeyCode.F)==true)
+            if (GameManager.instance.T_Planting == false)
             {
-                Debug.Log("[PC]OnTriggerEnter / keycode F");
-                tomato.GetComponent<Grow_Controller>().Grow();
+                GameManager.instance.planting_Text.SetActive(true);
+                GameManager.instance.tillage_Text.SetActive(false);
+                //Debug.Log("[PC]OnTriggerEnter / Tomato");
+                if (Input.GetKeyDown(KeyCode.F) == true)
+                {
+                    Debug.Log("[PC]OnTriggerEnter / keycode F");
+                    tomato.GetComponent<Grow_Controller>().Grow();
+                    GameManager.instance.T_Planting = true;
+                }
+            }
+            if (GameManager.instance.T_completeGrowth == true && GameManager.instance.T_Planting == true)
+            {
+                GameManager.instance.planting_Text.SetActive(false);
+                GameManager.instance.water_Text.SetActive(false);
+                GameManager.instance.tillage_Text.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.F) == true)
+                {
+                    GameManager.instance.Tomato_count += 16;
+                    Debug.Log("[PC]RESTART");
+                    tomato.GetComponent<Grow_Controller>().Restart();
+                }
+
+            }
+            else if (GameManager.instance.T_completeGrowth == false && GameManager.instance.T_Planting == true)
+            {
+                GameManager.instance.planting_Text.SetActive(false);
+                GameManager.instance.water_Text.SetActive(true);
+                GameManager.instance.tillage_Text.SetActive(false);
+
             }
         }
 
         if (other.tag == "SunFlower")
         {
-
-            Debug.Log("[PC]OnTriggerEnter / SunFlower");
-            if (Input.GetKeyDown(KeyCode.F) == true)
+            if (GameManager.instance.S_Planting == false)
             {
-                Debug.Log("[PC]OnTriggerEnter / keycode F");
-                sunflower.GetComponent<Grow_Controller>().Grow();
+                GameManager.instance.planting_Text.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.F) == true)
+                {
+                    Debug.Log("[PC]OnTriggerEnter / keycode F");
+                    sunflower.GetComponent<Grow_Controller>().Grow();
+                    GameManager.instance.S_Planting = true;
+                }
+            }
+            if (GameManager.instance.S_completeGrowth == true && GameManager.instance.S_Planting == true)
+            {
+                GameManager.instance.planting_Text.SetActive(false);
+                GameManager.instance.water_Text.SetActive(false);
+                GameManager.instance.tillage_Text.SetActive(true);
+                
+
+            }
+            else if (GameManager.instance.S_completeGrowth == false && GameManager.instance.S_Planting == true)
+            {
+                GameManager.instance.planting_Text.SetActive(false);
+                GameManager.instance.water_Text.SetActive(true);
+                GameManager.instance.tillage_Text.SetActive(false);
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
         GameManager.instance.water_Text.SetActive(false);
+        GameManager.instance.planting_Text.SetActive(false);
+        GameManager.instance.tillage_Text.SetActive(false);
     }
 }

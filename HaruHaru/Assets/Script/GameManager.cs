@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameObject water_Text;
     public GameObject tillage_Text;
+    public GameObject planting_Text;
     public Text month_Text;
     public Text day_Text;
     public Text hour_Text;
@@ -20,6 +21,13 @@ public class GameManager : MonoBehaviour
     float min;
 
     public int acceleration;
+    public bool T_completeGrowth;
+    public bool T_Planting;
+    public bool S_completeGrowth;
+    public bool S_Planting;
+
+    public int Tomato_count;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -36,7 +44,12 @@ public class GameManager : MonoBehaviour
         min = 1;
         water_Text.SetActive(false);
         tillage_Text.SetActive(false);
-
+        planting_Text.SetActive(false);
+        acceleration = 1;
+        T_completeGrowth = false;
+        T_Planting = false;
+        S_completeGrowth = false;
+        S_Planting = false;
     }
 
     // Update is called once per frame
@@ -49,13 +62,13 @@ public class GameManager : MonoBehaviour
     {
         month_Text.text = month + "월 ";
         day_Text.text = day + "일";
-        hour_Text.text = hour + "시";
-        min_Text.text = (int)min + "분";
-        min += Time.deltaTime;
+        hour_Text.text = hour + " : ";
+        min_Text.text = (int)min + "";
+        min += Time.deltaTime* acceleration;
         //Debug.Log("[GM]Hour/ min" + min);
         if(min>60)
         {
-            Debug.Log("[GM]Hour/ test");
+            //Debug.Log("[GM]Hour/ test");
             min = 1;
             hour += 1;
             if (hour > 24)
