@@ -114,11 +114,14 @@ public class Player_Controller : MonoBehaviour
                 GameManager.instance.planting_Text.SetActive(false);
                 GameManager.instance.water_Text.SetActive(false);
                 GameManager.instance.tillage_Text.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.F) == true)
+                if (CropsManager.instance.istillage == true)
                 {
-                    GameManager.instance.Tomato_count += 16;
-                    Debug.Log("[PC]RESTART");
-                    tomato.GetComponent<Grow_Controller>().Restart();
+                    if (Input.GetKeyDown(KeyCode.F) == true)
+                    {
+                        CropsManager.instance.Cherry_tomato_cur += 16;
+                        Debug.Log("[PC]RESTART");
+                        tomato.GetComponent<Grow_Controller>().Restart();
+                    }
                 }
 
             }
@@ -148,7 +151,15 @@ public class Player_Controller : MonoBehaviour
                 GameManager.instance.planting_Text.SetActive(false);
                 GameManager.instance.water_Text.SetActive(false);
                 GameManager.instance.tillage_Text.SetActive(true);
-                
+                if (CropsManager.instance.istillage == true)
+                {
+                    if (Input.GetKeyDown(KeyCode.F) == true)
+                    {
+                        CropsManager.instance.sunflower_cur += 8;
+                        Debug.Log("[PC]RESTART");
+                        sunflower.GetComponent<Grow_Controller>().Restart();
+                    }
+                }
 
             }
             else if (GameManager.instance.S_completeGrowth == false && GameManager.instance.S_Planting == true)

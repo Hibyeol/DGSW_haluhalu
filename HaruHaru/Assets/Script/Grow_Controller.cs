@@ -30,6 +30,7 @@ public class Grow_Controller : MonoBehaviour
         //}
     }
 
+
     public void Grow()
     {
         Debug.Log("[GC]Grow / Grow");
@@ -41,15 +42,17 @@ public class Grow_Controller : MonoBehaviour
     public void Restart()
     {
         Debug.Log("[GC]Restart");
-        animator.SetBool("Grow", false);
         animator.SetBool("Restart", true);
         GameManager.instance.T_Planting = false;
+        GameManager.instance.S_Planting = false;
+        StartCoroutine(restart());
     }
 
 
     public void T_CompleteGrowth()
     {
         GameManager.instance.T_completeGrowth = true;
+        animator.SetBool("Grow", false);
         Debug.Log("T_completeGrowth");
     }
 
@@ -57,6 +60,14 @@ public class Grow_Controller : MonoBehaviour
     public void S_CompleteGrowth()
     {
         GameManager.instance.S_completeGrowth = true;
+        animator.SetBool("Grow", false);
         Debug.Log("S_completeGrowth");
+    }
+
+    IEnumerator restart()
+    {
+        yield return new WaitForSeconds(30f);
+        animator.SetBool("Restart", false);
+
     }
 }

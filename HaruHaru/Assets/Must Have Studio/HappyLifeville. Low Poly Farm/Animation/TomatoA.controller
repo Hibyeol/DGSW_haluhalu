@@ -250,7 +250,6 @@ AnimatorState:
   m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1872400684772650686}
   - {fileID: -2406964886751403039}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
@@ -281,19 +280,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Restart
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -517,9 +516,6 @@ AnimatorStateMachine:
     m_State: {fileID: -385817512331837653}
     m_Position: {x: 410, y: 310, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 6039159511749578283}
-    m_Position: {x: 710, y: 300, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: -1095742949714023260}
     m_Position: {x: 450, y: 530, z: 0}
   - serializedVersion: 1
@@ -545,6 +541,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Restart
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Grow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6039159511749578283}
@@ -749,6 +748,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Restart
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Grow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -385817512331837653}
