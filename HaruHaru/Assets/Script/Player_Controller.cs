@@ -102,7 +102,7 @@ public class Player_Controller : MonoBehaviour
                 GameManager.instance.planting_Text.SetActive(true);
                 GameManager.instance.tillage_Text.SetActive(false);
                 //Debug.Log("[PC]OnTriggerEnter / Tomato");
-                if (Input.GetKeyDown(KeyCode.F) == true)
+                if (Input.GetKeyDown(KeyCode.F) == true) // 심기
                 {
                     Debug.Log("[PC]OnTriggerEnter / keycode F");
                     tomato.GetComponent<Grow_Controller>().Grow();
@@ -111,18 +111,20 @@ public class Player_Controller : MonoBehaviour
             }
             if (GameManager.instance.T_completeGrowth == true && GameManager.instance.T_Planting == true)
             {
-                GameManager.instance.planting_Text.SetActive(false);
-                GameManager.instance.water_Text.SetActive(false);
-                GameManager.instance.tillage_Text.SetActive(true);
-                if (CropsManager.instance.istillage == true)
-                {
-                    if (Input.GetKeyDown(KeyCode.F) == true)
+                GameManager.instance.planting_Text.SetActive(false); // 심기
+                GameManager.instance.water_Text.SetActive(false); // 물주기 
+                GameManager.instance.tillage_Text.SetActive(true); //재배하기
+                //if (CropsManager.instance.istillage == true)
+                //{
+                    if (Input.GetKeyDown(KeyCode.F) == true) // 재배
                     {
                         CropsManager.instance.Cherry_tomato_cur += 16;
+                    CropsManager.instance.cherry_tomato.text = "방울토마토\n" + CropsManager.instance.Cherry_tomato_cur;
+                    Debug.Log("[PC]"+CropsManager.instance.Cherry_tomato_cur);
                         Debug.Log("[PC]RESTART");
                         tomato.GetComponent<Grow_Controller>().Restart();
                     }
-                }
+                //}
 
             }
             else if (GameManager.instance.T_completeGrowth == false && GameManager.instance.T_Planting == true)
@@ -139,7 +141,7 @@ public class Player_Controller : MonoBehaviour
             if (GameManager.instance.S_Planting == false)
             {
                 GameManager.instance.planting_Text.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.F) == true)
+                if (Input.GetKeyDown(KeyCode.F) == true) // 심기
                 {
                     Debug.Log("[PC]OnTriggerEnter / keycode F");
                     sunflower.GetComponent<Grow_Controller>().Grow();

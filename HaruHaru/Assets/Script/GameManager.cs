@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         month_Text.text = month + "¿ù ";
         day_Text.text = day + "ÀÏ";
         hour_Text.text = hour + " : ";
-        min_Text.text = (int)min + "";
+        min_Text.text =" "+ (int)min + "";
         min += Time.deltaTime* acceleration;
         //Debug.Log("[GM]Hour/ min" + min);
         if(min>60)
