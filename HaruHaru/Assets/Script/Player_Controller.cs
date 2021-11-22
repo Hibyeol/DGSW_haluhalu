@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class Player_Controller : MonoBehaviour
@@ -10,6 +11,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField]
     private Transform cameraArm;
 
+    public GameObject UI;
     GameObject phone;
     GameObject tomato;
     GameObject sunflower;
@@ -21,12 +23,14 @@ public class Player_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UI.SetActive(true);
         animator = playerBody.GetComponent<Animator>();
         tomato = GameObject.Find("TomatoA");
         sunflower = GameObject.Find("SunFlowerA");
         phone = GameObject.Find("Phone");
         phone.SetActive(false);
         ismove = true;
+        
     }
 
     // Update is called once per frame
@@ -64,7 +68,7 @@ public class Player_Controller : MonoBehaviour
         Vector3 camAngle = cameraArm.rotation.eulerAngles;
         float x = camAngle.x - mouseDelta.y;
 
-        if(x < 180f)
+        if (x < 180f)
         {
             x = Mathf.Clamp(x, -1f, 70f);//카메라 각도 제한
         }
@@ -88,7 +92,7 @@ public class Player_Controller : MonoBehaviour
         {
             phone.SetActive(false);
             ismove = true;
-            
+
         }
     }
 
@@ -97,12 +101,12 @@ public class Player_Controller : MonoBehaviour
 
         if (other.tag == "Tomato")
         {
-            if (GameManager.instance.T_Planting == false)
+            if (GameManager.instance.T_Planting == false && GameManager.instance.replanting)
             {
-                GameManager.instance.planting_Text.SetActive(true);
-                GameManager.instance.tillage_Text.SetActive(false);
+                GameManager.instance.planting_Text.SetActive(true); // 심기
+                GameManager.instance.tillage_Text.SetActive(false); // 재배하기
                 //Debug.Log("[PC]OnTriggerEnter / Tomato");
-                if (Input.GetKeyDown(KeyCode.F) == true) // 심기
+                if (Input.GetKeyDown(KeyCode.F) == true) // 심기 기능
                 {
                     Debug.Log("[PC]OnTriggerEnter / keycode F");
                     tomato.GetComponent<Grow_Controller>().Grow();
@@ -114,16 +118,17 @@ public class Player_Controller : MonoBehaviour
                 GameManager.instance.planting_Text.SetActive(false); // 심기
                 GameManager.instance.water_Text.SetActive(false); // 물주기 
                 GameManager.instance.tillage_Text.SetActive(true); //재배하기
-                //if (CropsManager.instance.istillage == true)
-                //{
-                    if (Input.GetKeyDown(KeyCode.F) == true) // 재배
-                    {
-                        CropsManager.instance.Cherry_tomato_cur += 16;
+                                                                   //if (CropsManager.instance.istillage == true)
+                                                                   //{
+                if (Input.GetKeyDown(KeyCode.F) == true) // 재배 기능
+                {
+                    CropsManager.instance.Cherry_tomato_cur += 16;
                     CropsManager.instance.cherry_tomato.text = "방울토마토\n" + CropsManager.instance.Cherry_tomato_cur;
-                    Debug.Log("[PC]"+CropsManager.instance.Cherry_tomato_cur);
-                        Debug.Log("[PC]RESTART");
-                        tomato.GetComponent<Grow_Controller>().Restart();
-                    }
+                    Debug.Log("[PC]" + CropsManager.instance.Cherry_tomato_cur);
+                    Debug.Log("[PC]RESTART");
+                    tomato.GetComponent<Grow_Controller>().Restart();
+                    GameManager.instance.tillage_Text.SetActive(false); //재배하기
+                }
                 //}
 
             }

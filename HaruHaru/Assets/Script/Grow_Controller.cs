@@ -41,6 +41,7 @@ public class Grow_Controller : MonoBehaviour
 
     public void Restart()
     {
+        GameManager.instance.replanting = false;
         Debug.Log("[GC]Restart");
         animator.SetBool("Restart", true);
         GameManager.instance.T_Planting = false;
@@ -66,8 +67,9 @@ public class Grow_Controller : MonoBehaviour
 
     IEnumerator restart()
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(15f);
         animator.SetBool("Restart", false);
+        GameManager.instance.replanting = true;
 
     }
 }
