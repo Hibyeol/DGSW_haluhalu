@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CropsManager : MonoBehaviour
 {
     public static CropsManager instance;
-    public int Max;
+    public int Max; // 저장소 공간
     public int Cur;
     public int sunflower_cur;
     public int Napa_cabbage_cur;

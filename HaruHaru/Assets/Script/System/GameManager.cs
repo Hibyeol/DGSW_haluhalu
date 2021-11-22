@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Text day_Text;
     public Text hour_Text;
     public Text min_Text;
+    public int health = 100; // 플레이어 체력
 
     int year;
     int month;
