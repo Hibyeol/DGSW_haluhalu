@@ -57,7 +57,7 @@ public class Player_Controller : MonoBehaviour
             Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
             playerBody.forward = lookForward; // 바라보는 방향
-            transform.position += moveDir * Time.deltaTime * 1f; // 이동
+            transform.position += moveDir * Time.deltaTime * 3f; // 이동
         }
         Debug.DrawRay(cameraArm.position, new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized, Color.red);
     }
@@ -101,7 +101,7 @@ public class Player_Controller : MonoBehaviour
 
         if (other.tag == "Tomato")
         {
-            if (GameManager.instance.T_Planting == false && GameManager.instance.replanting)
+            if (GameManager.instance.T_Planting == false && GameManager.instance.Treplanting)
             {
                 GameManager.instance.planting_Text.SetActive(true); // 심기
                 GameManager.instance.tillage_Text.SetActive(false); // 재배하기
@@ -126,7 +126,7 @@ public class Player_Controller : MonoBehaviour
                     CropsManager.instance.cherry_tomato.text = "방울토마토\n" + CropsManager.instance.Cherry_tomato_cur;
                     Debug.Log("[PC]" + CropsManager.instance.Cherry_tomato_cur);
                     Debug.Log("[PC]RESTART");
-                    tomato.GetComponent<Grow_Controller>().Restart();
+                    tomato.GetComponent<Grow_Controller>().TRestart();
                     GameManager.instance.tillage_Text.SetActive(false); //재배하기
                 }
                 //}
@@ -143,10 +143,44 @@ public class Player_Controller : MonoBehaviour
 
         if (other.tag == "SunFlower")
         {
-            if (GameManager.instance.S_Planting == false)
+            //if (GameManager.instance.S_Planting == false)
+            //{
+            //    GameManager.instance.planting_Text.SetActive(true);
+            //    if (Input.GetKeyDown(KeyCode.F) == true) // 심기
+            //    {
+            //        Debug.Log("[PC]OnTriggerEnter / keycode F");
+            //        sunflower.GetComponent<Grow_Controller>().Grow();
+            //        GameManager.instance.S_Planting = true;
+            //    }
+            //}
+            //if (GameManager.instance.S_completeGrowth == true && GameManager.instance.S_Planting == true)
+            //{
+            //    GameManager.instance.planting_Text.SetActive(false);
+            //    GameManager.instance.water_Text.SetActive(false);
+            //    GameManager.instance.tillage_Text.SetActive(true);
+            //    if (CropsManager.instance.istillage == true)
+            //    {
+            //        if (Input.GetKeyDown(KeyCode.F) == true)
+            //        {
+            //            CropsManager.instance.sunflower_cur += 8;
+            //            Debug.Log("[PC]RESTART");
+            //            sunflower.GetComponent<Grow_Controller>().Restart();
+            //        }
+            //    }
+
+            //}
+            //else if (GameManager.instance.S_completeGrowth == false && GameManager.instance.S_Planting == true)
+            //{
+            //    GameManager.instance.planting_Text.SetActive(false);
+            //    GameManager.instance.water_Text.SetActive(true);
+            //    GameManager.instance.tillage_Text.SetActive(false);
+            //}
+            if (GameManager.instance.S_Planting == false && GameManager.instance.Sreplanting)
             {
-                GameManager.instance.planting_Text.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.F) == true) // 심기
+                GameManager.instance.planting_Text.SetActive(true); // 심기
+                GameManager.instance.tillage_Text.SetActive(false); // 재배하기
+                //Debug.Log("[PC]OnTriggerEnter / Tomato");
+                if (Input.GetKeyDown(KeyCode.F) == true) // 심기 기능
                 {
                     Debug.Log("[PC]OnTriggerEnter / keycode F");
                     sunflower.GetComponent<Grow_Controller>().Grow();
@@ -155,25 +189,29 @@ public class Player_Controller : MonoBehaviour
             }
             if (GameManager.instance.S_completeGrowth == true && GameManager.instance.S_Planting == true)
             {
-                GameManager.instance.planting_Text.SetActive(false);
-                GameManager.instance.water_Text.SetActive(false);
-                GameManager.instance.tillage_Text.SetActive(true);
-                if (CropsManager.instance.istillage == true)
+                GameManager.instance.planting_Text.SetActive(false); // 심기
+                GameManager.instance.water_Text.SetActive(false); // 물주기 
+                GameManager.instance.tillage_Text.SetActive(true); //재배하기
+                                                                   //if (CropsManager.instance.istillage == true)
+                                                                   //{
+                if (Input.GetKeyDown(KeyCode.F) == true) // 재배 기능
                 {
-                    if (Input.GetKeyDown(KeyCode.F) == true)
-                    {
-                        CropsManager.instance.sunflower_cur += 8;
-                        Debug.Log("[PC]RESTART");
-                        sunflower.GetComponent<Grow_Controller>().Restart();
-                    }
+                    CropsManager.instance.sunflower_cur += 4;
+                    CropsManager.instance.sunflower.text = "방울토마토\n" + CropsManager.instance.sunflower_cur;
+                    Debug.Log("[PC]" + CropsManager.instance.sunflower_cur);
+                    Debug.Log("[PC]RESTART");
+                    tomato.GetComponent<Grow_Controller>().SRestart();
+                    GameManager.instance.tillage_Text.SetActive(false); //재배하기
                 }
+                //}
 
             }
-            else if (GameManager.instance.S_completeGrowth == false && GameManager.instance.S_Planting == true)
+            else if (GameManager.instance.T_completeGrowth == false && GameManager.instance.T_Planting == true)
             {
                 GameManager.instance.planting_Text.SetActive(false);
                 GameManager.instance.water_Text.SetActive(true);
                 GameManager.instance.tillage_Text.SetActive(false);
+
             }
         }
     }

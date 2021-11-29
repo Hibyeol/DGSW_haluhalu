@@ -19,7 +19,6 @@ public class House_Controller : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //Debug.Log("[HC]OnTriggerEnter");
             GameManager.instance.acceleration = 30;
         }
     }

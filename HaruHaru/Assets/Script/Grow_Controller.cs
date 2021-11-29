@@ -6,13 +6,11 @@ public class Grow_Controller : MonoBehaviour
 {
 
     Animator animator;
-    public bool sunflower_planting;
     //public bool[] sunflower_planting = new bool[4];
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        sunflower_planting = false;
     }
 
     // Update is called once per frame
@@ -34,19 +32,28 @@ public class Grow_Controller : MonoBehaviour
     public void Grow()
     {
         Debug.Log("[GC]Grow / Grow");
-        sunflower_planting = true;
         animator.SetBool("Grow", true);
         animator.SetBool("Restart", false);
     }
 
-    public void Restart()
+    public void TRestart()
     {
-        GameManager.instance.replanting = false;
+        GameManager.instance.Treplanting = false;
         Debug.Log("[GC]Restart");
         animator.SetBool("Restart", true);
         GameManager.instance.T_Planting = false;
         GameManager.instance.S_Planting = false;
-        StartCoroutine(restart());
+        StartCoroutine(Trestart());
+    }
+
+    public void SRestart()
+    {
+        GameManager.instance.Treplanting = false;
+        Debug.Log("[GC]Restart");
+        animator.SetBool("Restart", true);
+        GameManager.instance.T_Planting = false;
+        GameManager.instance.S_Planting = false;
+        StartCoroutine(Srestart());
     }
 
 
@@ -65,11 +72,18 @@ public class Grow_Controller : MonoBehaviour
         Debug.Log("S_completeGrowth");
     }
 
-    IEnumerator restart()
+    IEnumerator Trestart()
     {
         yield return new WaitForSeconds(15f);
-        animator.SetBool("Restart", false);
-        GameManager.instance.replanting = true;
+        animator.SetBool("TRestart", false);
+        GameManager.instance.Treplanting = true;
+
+    }
+    IEnumerator Srestart()
+    {
+        yield return new WaitForSeconds(15f);
+        animator.SetBool("SRestart", false);
+        GameManager.instance.Treplanting = true;
 
     }
 }

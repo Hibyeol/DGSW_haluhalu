@@ -147,7 +147,7 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    public void healthpurchase() // 저장소 구메
+    public void healthpurchase() // 체력 강화 구메
     {
         if (MoneyManager.instance.funds >= 5000 && GameManager.instance.health <=200)
         {

@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     public bool T_Planting; // 토마토 심기
     public bool S_completeGrowth; // 해바라기 재배 가능
     public bool S_Planting; // 해바리기 심기
-    public bool replanting; // 재심기
+    public bool Sreplanting; // 해바라기 재심기
+    public bool Treplanting; // 토마토 재심기
 
     public int Tomato_count;
 
@@ -52,7 +53,8 @@ public class GameManager : MonoBehaviour
         T_Planting = false;
         S_completeGrowth = false;
         S_Planting = false;
-        replanting = true;
+        Treplanting = true;
+        Sreplanting = true;
     }
 
     // Update is called once per frame

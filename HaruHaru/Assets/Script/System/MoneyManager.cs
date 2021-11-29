@@ -8,7 +8,7 @@ public class MoneyManager : MonoBehaviour
     public static MoneyManager instance;
 
     public Text fund_Text;
-    public int funds = 35000; //기본 자금 5000원
+    public int funds = 5000; //기본 자금 5000원
 
     private void Awake()
     {

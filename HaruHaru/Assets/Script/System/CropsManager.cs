@@ -8,11 +8,11 @@ public class CropsManager : MonoBehaviour
     public static CropsManager instance;
     public int Max; // 저장소 공간
     public int Cur;
-    public int sunflower_cur;
-    public int Napa_cabbage_cur;
-    public int pumpkin_cur;
+    public int sunflower_cur =0;
+    public int Napa_cabbage_cur =0;
+    public int pumpkin_cur = 0;
     public int Cherry_tomato_cur = 0;
-    public int rice_cur;
+    public int rice_cur = 0;
 
     public GameObject UI;
     public Text sunflower;

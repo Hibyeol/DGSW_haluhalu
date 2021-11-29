@@ -9,6 +9,10 @@ public class NoticeUI : MonoBehaviour
     public Text subintext;
     public Animator subani;
 
+    //public GameObject saleSubbox;
+    //public Text saleSubintext;
+    //public Animator saleSubani;
+
     private WaitForSeconds _UIDelay1 = new WaitForSeconds(2.0f);
     private WaitForSeconds _UIDelay2 = new WaitForSeconds(0.3f);
 
@@ -16,6 +20,7 @@ public class NoticeUI : MonoBehaviour
     void Start()
     {
         subbox.SetActive(false);
+        //saleSubbox.SetActive(false);
     }
 
 
@@ -26,7 +31,14 @@ public class NoticeUI : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(SUBDelay());
     }
-    
+
+    //public void SUB2(string message)
+    //{
+    //    saleSubintext.text = message;
+    //    saleSubbox.SetActive(false);
+    //    StopAllCoroutines();
+    //    StartCoroutine(SUBDelay2());
+    //}
     IEnumerator SUBDelay()
     {
         subbox.SetActive(true);
@@ -36,4 +48,14 @@ public class NoticeUI : MonoBehaviour
         yield return _UIDelay2;
         subbox.SetActive(false);
     }
+
+    //IEnumerator SUBDelay2()
+    //{
+    //    saleSubbox.SetActive(true);
+    //    saleSubani.SetBool("isOn", true);
+    //    yield return _UIDelay1;
+    //    saleSubani.SetBool("isOn", false);
+    //    yield return _UIDelay2;
+    //    saleSubbox.SetActive(false);
+    //}
 }
